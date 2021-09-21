@@ -1,4 +1,4 @@
-import Routers from ".././src/Routers/Routers.jsx";
+import Routers from "./Routers/Routers.jsx";
 function App() {
   return (
     <div className="App">

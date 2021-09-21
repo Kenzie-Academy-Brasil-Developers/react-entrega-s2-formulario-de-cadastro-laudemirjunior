@@ -1,11 +1,18 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Planet from ".././../images/planet.png";
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles({
   container: {
@@ -23,17 +30,22 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    gap: "20px",
+    gap: "10px",
     width: "310px",
     height: "500px",
     background: "rgba( 255, 255, 255, 0.6 )",
     borderRadius: "10px",
     border: "1px solid rgba( 255, 255, 255, 0.6 )",
   },
+  input: {
+    width: "250px",
+  },
 });
 
-function Form({ setLogado }) {
-  const [obj, setObj] = useState([]);
+function Form({ setLogado, setObj }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmePassword, setShowConfirmePassword] = useState(false);
+
   const classes = useStyles();
 
   const history = useHistory();
@@ -77,17 +89,17 @@ function Form({ setLogado }) {
   });
 
   const onSubmitFunction = (data) => {
-    setObj(data);
-    console.log(data);
     setLogado(true);
     history.push("/home");
+    setObj(data);
   };
 
   return (
     <div className={classes.container}>
       <form onSubmit={handleSubmit(onSubmitFunction)} className={classes.form}>
-        <h3>Formulário</h3>
+        <h2>Formulário</h2>
         <TextField
+          className={classes.input}
           label="Nome"
           placeholder="Digite seu nome"
           type="text"
@@ -96,6 +108,7 @@ function Form({ setLogado }) {
           error={!!errors.name}
         />
         <TextField
+          className={classes.input}
           label="E-mail"
           placeholder="Digite seu e-mail"
           type="email"
@@ -104,20 +117,42 @@ function Form({ setLogado }) {
           error={!!errors.email}
         />
         <TextField
+          className={classes.input}
           label="Senha"
           placeholder="Digite uma senha"
           {...register("password")}
-          type="password"
+          type={showPassword ? "text" : "password"}
           helperText={errors.password?.message}
           error={!!errors.password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
+          className={classes.input}
           label="Confirmar Senha"
           placeholder="Confirme sua senha"
           {...register("confirmPassword")}
-          type="password"
+          type={showPassword ? "text" : "password"}
           helperText={errors.confirmPassword?.message}
           error={!!errors.confirmPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <IconButton
+                  onClick={() => setShowConfirmePassword(!showConfirmePassword)}
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <Button type="submit" variant="contained" color="secondary">
           Enviar
