@@ -42,7 +42,8 @@ const useStyles = makeStyles({
   },
 });
 
-function Form({ setLogado, setObj }) {
+function Form({ setLogado }) {
+  const [obj, setObj] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmePassword, setShowConfirmePassword] = useState(false);
 
