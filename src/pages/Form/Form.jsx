@@ -148,7 +148,11 @@ function Form({ setLogado, setObj }) {
                 <IconButton
                   onClick={() => setShowConfirmePassword(!showConfirmePassword)}
                 >
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  {showConfirmePassword ? (
+                    <VisibilityOffIcon />
+                  ) : (
+                    <VisibilityIcon />
+                  )}
                 </IconButton>
               </InputAdornment>
             ),

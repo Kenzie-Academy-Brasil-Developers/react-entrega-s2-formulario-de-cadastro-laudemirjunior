@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = ({ logado, obj }) => {
+const Home = ({ logado }) => {
   const classes = useStyles();
   const { name } = useParams();
   const history = useHistory();

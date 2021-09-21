@@ -13,7 +13,7 @@ const Routers = () => {
           <Form setLogado={setLogado} setObj={setObj} />
         </Route>
         <Route path="/home/:name">
-          <Home from logado={logado} obj={obj} />
+          <Home from logado={logado} />
         </Route>
       </Switch>
     </div>
