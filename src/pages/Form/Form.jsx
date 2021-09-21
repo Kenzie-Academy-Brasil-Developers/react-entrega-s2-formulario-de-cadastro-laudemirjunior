@@ -5,13 +5,7 @@ import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Planet from ".././../images/planet.png";
 import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   container: {
@@ -31,16 +25,18 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "20px",
     width: "310px",
-    height: "550px",
+    height: "500px",
     background: "rgba( 255, 255, 255, 0.6 )",
     borderRadius: "10px",
     border: "1px solid rgba( 255, 255, 255, 0.6 )",
   },
 });
 
-function Form() {
+function Form({ setLogado }) {
   const [obj, setObj] = useState([]);
   const classes = useStyles();
+
+  const history = useHistory();
 
   const formSchema = yup.object().shape({
     name: yup
@@ -83,35 +79,14 @@ function Form() {
   const onSubmitFunction = (data) => {
     setObj(data);
     console.log(data);
-  };
-
-  const [values, setValues] = useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+    setLogado(true);
+    history.push("/home");
   };
 
   return (
     <div className={classes.container}>
       <form onSubmit={handleSubmit(onSubmitFunction)} className={classes.form}>
-        <h2>Formulário</h2>
+        <h3>Formulário</h3>
         <TextField
           label="Nome"
           placeholder="Digite seu nome"
@@ -144,30 +119,6 @@ function Form() {
           helperText={errors.confirmPassword?.message}
           error={!!errors.confirmPassword}
         />
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? "text" : "password"}
-            value={values.password}
-            onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
         <Button type="submit" variant="contained" color="secondary">
           Enviar
         </Button>

@@ -1,9 +1,8 @@
-import Form from "./components/Form/Form.jsx";
-
+import Routers from ".././src/Routers/Routers.jsx";
 function App() {
   return (
     <div className="App">
-      <Form />
+      <Routers />
     </div>
   );
 }
