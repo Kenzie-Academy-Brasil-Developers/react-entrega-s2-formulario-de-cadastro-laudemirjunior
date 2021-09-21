@@ -1,4 +1,4 @@
-import { Switch, Route, useParams } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Form from "../pages/Form/Form";
 import { useState } from "react";
@@ -12,7 +12,7 @@ const Routers = () => {
         <Route exact path="/">
           <Form setLogado={setLogado} setObj={setObj} />
         </Route>
-        <Route path="/home">
+        <Route path="/home/:name">
           <Home from logado={logado} obj={obj} />
         </Route>
       </Switch>

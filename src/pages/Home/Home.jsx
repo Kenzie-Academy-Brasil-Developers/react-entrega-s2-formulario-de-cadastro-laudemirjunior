@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import login from ".././../images/login.png";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles({
   container: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
 
 const Home = ({ logado, obj }) => {
   const classes = useStyles();
-
+  const { name } = useParams();
   const history = useHistory();
   if (!logado) {
     history.push("/");
@@ -44,7 +45,7 @@ const Home = ({ logado, obj }) => {
   return (
     <div className={classes.container}>
       <div className={classes.form}>
-        <h1 style={{ color: "white" }}>Bem-vindo, {obj.name}</h1>
+        <h1 style={{ color: "white" }}>Bem-vindo, {name}</h1>
         <div className={classes.image}></div>
         <Button variant="contained" color="primary">
           <Link to="/">Voltar</Link>

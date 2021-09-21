@@ -90,7 +90,7 @@ function Form({ setLogado, setObj }) {
 
   const onSubmitFunction = (data) => {
     setLogado(true);
-    history.push("/home");
+    history.push(`/home/${data.name}`);
     setObj(data);
   };
 
